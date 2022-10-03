@@ -38,6 +38,12 @@ app.get("/ps", (req, res) => {
 
 });
 
+app.get("ps/filter", (req, res) => {
+  res.json({
+    msg: "error filter"
+  });
+});
+
 app.get("/ps/:id", (req, res) => {
   const {id } = req.params;
 
@@ -57,7 +63,6 @@ app.get("/c/:idC/ps/:idP", (req, res) => {
     idP,
   });
 });
-
 
 app.get("/user", (req, res) => {
   const { limit, offset } = req.query
