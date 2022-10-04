@@ -36,18 +36,27 @@ r.get("/filter", (req, res) => {
 r.get("/:id", (req, res) => {
   const {id } = req.params;
 
-  res.json({
+  if (id === "999") {
+    res.status(404).json({
+      msg: "NotFound"
+    })
+  } else {
+
+  res.status(200).json({
     id,
     name:"product-2",
     price: 200
   });
+
+  }
+
 });
 
 //post
 r.post("/", (req, res) => {
   const body = req.body;
 
-  res.json({
+  res.status(201).json({
     msg  : "created Product",
     data : body
   });
