@@ -54,5 +54,25 @@ r.post("/", (req, res) => {
 
 });
 
+//patch
+r.patch("/:id", (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  res.json({
+    msg  : "Update - patch, product",
+    data : body,
+    id,
+  });
+});
+
+//delete
+r.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  res.json({
+    msg: "Delete product",
+    id
+  });
+});
+
 
 module.exports = r;
