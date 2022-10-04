@@ -19,20 +19,50 @@ const faker = require("faker");
       }
     }
 
-    create(){}
+    async create(data){
+      const usr = {
+        id  : faker.datatype.uuid(),
+        ...data
+      }
 
-    find(){
+      this.user.push(usr)
+    }
+
+    async find(){
       return this.user;
     }
 
-    fincOne(id){
+    async fincOne(id){
       return this.user.find(u => u.id === id)
     }
 
-    delete(){}
+    async delete(id){
+      const index = this.user.findIndex(item => item.id === id)
 
-    update(){}
+      if (index === -1) {
+        throw new Error("User Not Found")
+      }
 
+      this.user.splice(index, 1)
+
+      return { id }
+
+    }
+
+    update(id,  changeData){
+      const index = this.user.findIndex(item => item.id === id)
+
+      if (index === -1){
+        throw new Error("User Not Found")
+      }
+      const usr = this.user[index]
+      this.user[index] = {
+        ...usr,
+        ...changeData
+      }
+
+      return this.user[index]
+    }
   }
 
 
