@@ -43,5 +43,16 @@ r.get("/:id", (req, res) => {
   });
 });
 
+//post
+r.post("/", (req, res) => {
+  const body = req.body;
+
+  res.json({
+    msg  : "created Product",
+    data : body
+  });
+
+});
+
 
 module.exports = r;
