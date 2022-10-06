@@ -17,10 +17,15 @@ r.get("/filter", (req, res) => {
   });
 });
 
-r.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  const p = await service.findOne(id);
-  res.json(p);
+r.get("/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const p = await service.findOne(id);
+    res.json(p);
+  } catch (error) {
+    next(error)
+  }
+
 
 });
 
@@ -39,7 +44,7 @@ r.post("/", async (req, res) => {
 });
 
 //patch
-r.patch("/:id", async (req, res) => {
+r.patch("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const body = req.body;
@@ -51,12 +56,12 @@ r.patch("/:id", async (req, res) => {
       }
     });
   } catch (error) {
-    res.status(404).json({ msg : error.message})
+    next(error)
   }
 });
 
 //delete
-r.delete("/:id", async (req, res) => {
+r.delete("/:id", async (req, res, next) => {
 
   try {
     const { id } = req.params;
@@ -67,9 +72,7 @@ r.delete("/:id", async (req, res) => {
       ...rta
     });
   } catch (error) {
-    res.status(404).json({
-      msg : error.message
-    })
+    next(error)
   }
 
 });
